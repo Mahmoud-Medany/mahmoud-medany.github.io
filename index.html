@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mahmoud ❤️ Donia</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #d4a843;
+    --gold-light: #f0c96b;
+    --gold-glow: #ffd87a;
+    --rose: #e8607a;
+    --rose-light: #f5a0b0;
+    --rose-deep: #c0415a;
+    --cream: #fff8ee;
+    --warm-bg: #1a0a12;
+    --warm-mid: #2c1020;
+    --lantern-orange: #e8843a;
+    --lantern-red: #c94040;
+    --teal: #3aacb0;
+    --purple-deep: #2d1040;
+    --glass-bg: rgba(255,240,220,0.07);
+    --glass-border: rgba(212,168,67,0.3);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--warm-bg);
+    color: var(--cream);
+    font-family: 'Lato', sans-serif;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom Cursor */
+  #cursor {
+    position: fixed;
+    width: 12px; height: 12px;
+    background: var(--gold);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s, width 0.2s, height 0.2s;
+    mix-blend-mode: screen;
+    box-shadow: 0 0 10px var(--gold-glow);
+  }
+
+  /* ===== CANVAS ===== */
+  #bg-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ===== CLICK HEARTS ===== */
+  .click-heart {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    font-size: 1.5rem;
+    animation: floatUp 1s ease-out forwards;
+  }
+  @keyframes floatUp {
+    0%   { opacity: 1; transform: translateY(0) scale(1); }
+    100% { opacity: 0; transform: translateY(-80px) scale(1.6); }
+  }
+
+  /* ===== NAVBAR ===== */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    background: rgba(26,10,18,0.7);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--glass-border);
+  }
+  nav a {
+    color: var(--gold-light);
+    text-decoration: none;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  nav a:hover { color: #fff; text-shadow: 0 0 8px var(--gold-glow); }
+
+  /* ===== SECTIONS ===== */
+  section {
+    position: relative;
+    z-index: 1;
+    padding: 100px 2rem;
+  }
+
+  /* ===== HERO ===== */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    padding-top: 80px;
+  }
+
+  .crescent-wrap {
+    position: absolute;
+    top: 60px; right: 60px;
+    z-index: 2;
+    animation: floatCrescent 6s ease-in-out infinite;
+  }
+  @keyframes floatCrescent {
+    0%,100% { transform: translateY(0) rotate(-5deg); }
+    50%      { transform: translateY(-15px) rotate(5deg); }
+  }
+  .crescent {
+    width: 90px; height: 90px;
+    background: var(--gold);
+    border-radius: 50%;
+    position: relative;
+    box-shadow: 0 0 30px var(--gold-glow), 0 0 60px rgba(212,168,67,0.3);
+  }
+  .crescent::after {
+    content: '';
+    position: absolute;
+    width: 75px; height: 75px;
+    background: var(--warm-bg);
+    border-radius: 50%;
+    top: 5px; left: 20px;
+  }
+
+  .star-deco {
+    position: absolute;
+    color: var(--gold);
+    font-size: 1.2rem;
+    animation: twinkle 2s ease-in-out infinite;
+  }
+  @keyframes twinkle {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50%      { opacity: 0.3; transform: scale(0.7); }
+  }
+
+  .hero-subtitle {
+    font-family: 'Amiri', serif;
+    font-size: 1.1rem;
+    color: var(--gold-light);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 1s 0.3s forwards;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 8vw, 7rem);
+    font-style: italic;
+    line-height: 1.1;
+    background: linear-gradient(135deg, var(--gold-light), var(--rose-light), var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    opacity: 0;
+    animation: fadeUp 1s 0.6s forwards;
+    text-shadow: none;
+    filter: drop-shadow(0 0 20px rgba(212,168,67,0.4));
+  }
+  .hero-heart {
+    font-size: clamp(2rem, 5vw, 4rem);
+    display: block;
+    animation: heartbeat 1.5s ease-in-out infinite;
+  }
+  @keyframes heartbeat {
+    0%,100% { transform: scale(1); }
+    15%      { transform: scale(1.15); }
+    30%      { transform: scale(1); }
+    45%      { transform: scale(1.08); }
+  }
+  .hero-desc {
+    font-family: 'Amiri', serif;
+    font-size: 1.3rem;
+    color: rgba(255,240,220,0.7);
+    margin-top: 1.5rem;
+    max-width: 500px;
+    line-height: 1.8;
+    opacity: 0;
+    animation: fadeUp 1s 1s forwards;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--gold);
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    animation: bounce 2s infinite;
+    opacity: 0.6;
+  }
+  @keyframes bounce {
+    0%,100% { transform: translateX(-50%) translateY(0); }
+    50%      { transform: translateX(-50%) translateY(8px); }
+  }
+
+  /* ===== LANTERNS ===== */
+  .lantern-row {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    display: flex;
+    justify-content: space-around;
+    pointer-events: none;
+    z-index: 2;
+  }
+  .lantern {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: swingLantern 4s ease-in-out infinite;
+    transform-origin: top center;
+  }
+  .lantern:nth-child(2) { animation-delay: -1s; }
+  .lantern:nth-child(3) { animation-delay: -2s; }
+  .lantern:nth-child(4) { animation-delay: -0.5s; }
+  @keyframes swingLantern {
+    0%,100% { transform: rotate(-6deg); }
+    50%      { transform: rotate(6deg); }
+  }
+  .lantern-string {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, rgba(212,168,67,0.5), rgba(212,168,67,0.2));
+  }
+  .lantern-body {
+    width: 28px;
+    height: 40px;
+    border-radius: 6px 6px 10px 10px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .lantern-body::before {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    border-radius: 4px 4px 8px 8px;
+    background: rgba(255,180,80,0.4);
+  }
+  .lantern-body::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 6px 6px 10px 10px;
+    box-shadow: 0 0 15px currentColor, 0 0 30px currentColor;
+    opacity: 0.5;
+  }
+  .lantern-glow {
+    position: absolute;
+    width: 50px; height: 50px;
+    border-radius: 50%;
+    background: radial-gradient(circle, currentColor 0%, transparent 70%);
+    opacity: 0.15;
+    animation: glowPulse 2s ease-in-out infinite;
+  }
+  @keyframes glowPulse {
+    0%,100% { opacity: 0.15; transform: scale(1); }
+    50%      { opacity: 0.3; transform: scale(1.2); }
+  }
+  .lantern-cap {
+    width: 36px; height: 8px;
+    background: currentColor;
+    border-radius: 3px 3px 0 0;
+    opacity: 0.8;
+  }
+  .lantern-bottom {
+    width: 10px; height: 12px;
+    background: currentColor;
+    border-radius: 0 0 3px 3px;
+    opacity: 0.7;
+  }
+
+  /* ===== COUNTER ===== */
+  #counter {
+    background: linear-gradient(135deg, rgba(44,16,32,0.95), rgba(26,10,18,0.95));
+  }
+  .section-label {
+    font-family: 'Amiri', serif;
+    font-size: 0.85rem;
+    color: var(--gold);
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    opacity: 0.7;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    text-align: center;
+    color: var(--cream);
+    margin-bottom: 3rem;
+    line-height: 1.3;
+  }
+  .section-title span { color: var(--gold-light); font-style: italic; }
+
+  .counter-grid {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .counter-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 2rem 1.5rem;
+    min-width: 140px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .counter-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(212,168,67,0.2);
+  }
+  .counter-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(212,168,67,0.05), transparent);
+    pointer-events: none;
+  }
+  .counter-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--gold-light);
+    line-height: 1;
+    text-shadow: 0 0 20px rgba(212,168,67,0.5);
+  }
+  .counter-label {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,240,220,0.5);
+    margin-top: 0.5rem;
+  }
+
+  /* ===== DUAS SECTION ===== */
+  #duas {
+    background: linear-gradient(180deg, var(--warm-bg), var(--warm-mid), var(--warm-bg));
+  }
+  .duas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  .dua-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    transition: transform 0.4s, box-shadow 0.4s;
+    animation: fadeInUp 0.6s both;
+  }
+  .dua-card:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(232,96,122,0.2);
+  }
+  .dua-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at top, rgba(212,168,67,0.08), transparent 60%);
+    pointer-events: none;
+  }
+  .dua-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    display: block;
+    filter: drop-shadow(0 0 8px rgba(212,168,67,0.6));
+  }
+  .dua-text {
+    font-family: 'Amiri', serif;
+    font-size: 1.2rem;
+    color: var(--cream);
+    line-height: 1.9;
+    direction: rtl;
+  }
+  .dua-ornament {
+    display: block;
+    margin-top: 1rem;
+    color: var(--gold);
+    font-size: 1rem;
+    opacity: 0.5;
+    letter-spacing: 5px;
+  }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ===== GAMES SECTION ===== */
+  #games {
+    background: linear-gradient(135deg, rgba(26,10,18,0.95), rgba(44,16,32,0.95));
+  }
+  .games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .game-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 2rem;
+    text-align: center;
+    text-decoration: none;
+    color: var(--cream);
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+    display: block;
+  }
+  .game-card:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 20px 50px rgba(58,172,176,0.25);
+    border-color: var(--teal);
+  }
+  .game-card:hover .game-icon { transform: scale(1.2) rotate(5deg); }
+  .game-icon {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 1rem;
+    transition: transform 0.3s;
+  }
+  .game-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--gold-light);
+    margin-bottom: 0.5rem;
+  }
+  .game-desc {
+    font-size: 0.85rem;
+    color: rgba(255,240,220,0.5);
+    line-height: 1.6;
+  }
+  .game-card::after {
+    content: '↗';
+    position: absolute;
+    top: 1rem; left: 1rem;
+    font-size: 0.8rem;
+    color: var(--teal);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .game-card:hover::after { opacity: 1; }
+
+  /* ===== DISCORD SECTION ===== */
+  #discord {
+    background: linear-gradient(180deg, var(--warm-mid), var(--warm-bg));
+    text-align: center;
+  }
+  .discord-card {
+    max-width: 600px;
+    margin: 0 auto;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(20px);
+    border-radius: 30px;
+    padding: 3rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .discord-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(88,101,242,0.1), transparent 70%);
+  }
+  .discord-logo {
+    font-size: 4rem;
+    display: block;
+    margin-bottom: 1rem;
+    filter: drop-shadow(0 0 15px rgba(88,101,242,0.6));
+  }
+  .discord-text {
+    font-family: 'Amiri', serif;
+    font-size: 1.1rem;
+    color: rgba(255,240,220,0.7);
+    line-height: 1.8;
+    margin-bottom: 2rem;
+  }
+  .btn-discord {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: linear-gradient(135deg, #5865f2, #7289da);
+    color: white;
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-family: 'Lato', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    transition: all 0.3s;
+    box-shadow: 0 5px 20px rgba(88,101,242,0.4);
+  }
+  .btn-discord:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 10px 40px rgba(88,101,242,0.6);
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: rgba(10,3,8,0.9);
+    border-top: 1px solid var(--glass-border);
+    text-align: center;
+    padding: 2.5rem;
+    font-family: 'Amiri', serif;
+    color: rgba(255,240,220,0.5);
+    font-size: 1rem;
+    position: relative;
+    z-index: 1;
+  }
+  footer span { color: var(--rose); animation: heartbeat 1.5s infinite; display: inline-block; }
+  footer strong { color: var(--gold-light); }
+
+  /* ===== DIVIDER ===== */
+  .ornament-divider {
+    text-align: center;
+    color: var(--gold);
+    font-size: 1.5rem;
+    opacity: 0.4;
+    margin: 0 auto 3rem;
+    letter-spacing: 8px;
+  }
+
+  /* ===== SCROLL REVEAL ===== */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ===== MOBILE ===== */
+  @media (max-width: 600px) {
+    nav { gap: 1rem; font-size: 0.75rem; padding: 0.75rem 1rem; }
+    nav a { letter-spacing: 1px; font-size: 0.75rem; }
+    .counter-card { min-width: 100px; padding: 1.5rem 1rem; }
+    .counter-num { font-size: 2.5rem; }
+    .crescent-wrap { top: 70px; right: 20px; }
+    .crescent { width: 60px; height: 60px; }
+    .crescent::after { width: 50px; height: 50px; top: 4px; left: 14px; }
+    section { padding: 80px 1.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+<div id="cursor"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero">Home</a>
+  <a href="#counter">Our Time</a>
+  <a href="#duas">Duas</a>
+  <a href="#games">Play</a>
+  <a href="#discord">Discord</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <!-- Crescent -->
+  <div class="crescent-wrap">
+    <div class="crescent"></div>
+  </div>
+  <!-- Scattered stars -->
+  <div class="star-deco" style="top:15%;left:10%;animation-delay:0s">✦</div>
+  <div class="star-deco" style="top:25%;left:20%;animation-delay:0.5s;font-size:0.7rem">✦</div>
+  <div class="star-deco" style="top:10%;left:75%;animation-delay:1s">✦</div>
+  <div class="star-deco" style="top:35%;left:85%;animation-delay:1.5s;font-size:0.7rem">✦</div>
+  <div class="star-deco" style="top:60%;left:5%;animation-delay:0.3s">✧</div>
+  <div class="star-deco" style="top:70%;left:90%;animation-delay:0.8s">✧</div>
+  <div class="star-deco" style="top:80%;left:15%;animation-delay:1.2s;font-size:0.6rem">★</div>
+
+  <!-- Lanterns -->
+  <div class="lantern-row">
+    <div class="lantern" style="padding-top:0">
+      <div class="lantern-string"></div>
+      <div class="lantern-cap" style="color:var(--gold)"></div>
+      <div class="lantern-body" style="background:linear-gradient(135deg,#e8843a,#c94040);color:var(--lantern-orange)">
+        <div class="lantern-glow" style="color:var(--lantern-orange)"></div>
+      </div>
+      <div class="lantern-bottom" style="color:var(--gold)"></div>
+    </div>
+    <div class="lantern" style="padding-top:20px">
+      <div class="lantern-string" style="height:60px"></div>
+      <div class="lantern-cap" style="color:var(--rose)"></div>
+      <div class="lantern-body" style="background:linear-gradient(135deg,#e8607a,#c0415a);color:var(--rose)">
+        <div class="lantern-glow" style="color:var(--rose)"></div>
+      </div>
+      <div class="lantern-bottom" style="color:var(--rose-deep)"></div>
+    </div>
+    <div class="lantern" style="padding-top:10px">
+      <div class="lantern-string" style="height:50px"></div>
+      <div class="lantern-cap" style="color:var(--gold)"></div>
+      <div class="lantern-body" style="background:linear-gradient(135deg,#d4a843,#e8843a);color:var(--gold)">
+        <div class="lantern-glow" style="color:var(--gold)"></div>
+      </div>
+      <div class="lantern-bottom" style="color:var(--gold)"></div>
+    </div>
+    <div class="lantern" style="padding-top:5px">
+      <div class="lantern-string" style="height:45px"></div>
+      <div class="lantern-cap" style="color:var(--teal)"></div>
+      <div class="lantern-body" style="background:linear-gradient(135deg,#3aacb0,#2a7a7e);color:var(--teal)">
+        <div class="lantern-glow" style="color:var(--teal)"></div>
+      </div>
+      <div class="lantern-bottom" style="color:var(--teal)"></div>
+    </div>
+  </div>
+
+  <!-- Text -->
+  <p class="hero-subtitle">رمضان مبارك • A Love Story</p>
+  <h1 class="hero-title">
+    Mahmoud<br>
+    <span class="hero-heart">❤️</span>
+    Donia
+  </h1>
+  <p class="hero-desc">
+    في شهر الرحمة والمحبة،<br>
+    قلبان يلتقيان تحت نور القمر
+  </p>
+
+  <div class="scroll-hint">↓ scroll ↓</div>
+</section>
+
+<!-- COUNTER -->
+<section id="counter">
+  <div class="ornament-divider">✦ ❤ ✦</div>
+  <p class="section-label">Since February 16, 2025</p>
+  <h2 class="section-title reveal">
+    Time since <span>Mahmoud ❤️ Donia</span><br>started their journey
+  </h2>
+  <div class="counter-grid reveal">
+    <div class="counter-card">
+      <div class="counter-num" id="days">000</div>
+      <div class="counter-label">Days</div>
+    </div>
+    <div class="counter-card">
+      <div class="counter-num" id="hours">00</div>
+      <div class="counter-label">Hours</div>
+    </div>
+    <div class="counter-card">
+      <div class="counter-num" id="minutes">00</div>
+      <div class="counter-label">Minutes</div>
+    </div>
+    <div class="counter-card">
+      <div class="counter-num" id="seconds">00</div>
+      <div class="counter-label">Seconds</div>
+    </div>
+  </div>
+</section>
+
+<!-- DUAS -->
+<section id="duas">
+  <div class="ornament-divider">☽ ✦ ☾</div>
+  <p class="section-label">Islamic Duas for Love</p>
+  <h2 class="section-title reveal">أدعية من القلب 🤲</h2>
+  <div class="duas-grid">
+    <div class="dua-card reveal" style="animation-delay:0.1s">
+      <span class="dua-icon">🌙</span>
+      <p class="dua-text">اللهم اجعل بيننا مودة ورحمة وبارك لنا في حياتنا.</p>
+      <span class="dua-ornament">❦ ❧</span>
+    </div>
+    <div class="dua-card reveal" style="animation-delay:0.2s">
+      <span class="dua-icon">💫</span>
+      <p class="dua-text">اللهم احفظ حبنا وادم السعادة بين قلوبنا.</p>
+      <span class="dua-ornament">❦ ❧</span>
+    </div>
+    <div class="dua-card reveal" style="animation-delay:0.3s">
+      <span class="dua-icon">🕌</span>
+      <p class="dua-text">اللهم اجعلنا لبعضنا سكنًا وراحة.</p>
+      <span class="dua-ornament">❦ ❧</span>
+    </div>
+    <div class="dua-card reveal" style="animation-delay:0.15s">
+      <span class="dua-icon">✨</span>
+      <p class="dua-text">اللهم ألّف بين قلوبنا كما ألّفت بين الأرواح المتشابهة.</p>
+      <span class="dua-ornament">❦ ❧</span>
+    </div>
+    <div class="dua-card reveal" style="animation-delay:0.25s">
+      <span class="dua-icon">🌹</span>
+      <p class="dua-text">اللهم اجعل بيتنا بيتاً مليئاً بالمحبة والطمأنينة والنور.</p>
+      <span class="dua-ornament">❦ ❧</span>
+    </div>
+    <div class="dua-card reveal" style="animation-delay:0.35s">
+      <span class="dua-icon">🌙</span>
+      <p class="dua-text">ربنا هب لنا من أزواجنا وذريّاتنا قرّة أعين واجعلنا للمتقين إماماً.</p>
+      <span class="dua-ornament">❦ ❧</span>
+    </div>
+  </div>
+</section>
+
+<!-- GAMES -->
+<section id="games">
+  <div class="ornament-divider">✦ 🎨 ✦</div>
+  <p class="section-label">For you two</p>
+  <h2 class="section-title reveal">Relax & Play Together 🎨</h2>
+  <p class="reveal" style="text-align:center;color:rgba(255,240,220,0.5);margin-bottom:2.5rem;font-size:0.95rem;">
+    Take a break and enjoy some coloring together 💕
+  </p>
+  <div class="games-grid">
+    <a class="game-card reveal" href="https://www.coloringbook.com" target="_blank" rel="noopener">
+      <span class="game-icon">🖍️</span>
+      <div class="game-title">Coloring Book</div>
+      <div class="game-desc">Beautiful illustrations to color together online</div>
+    </a>
+    <a class="game-card reveal" href="https://www.agame.com/games/coloring" target="_blank" rel="noopener">
+      <span class="game-icon">🎨</span>
+      <div class="game-title">Painting Games</div>
+      <div class="game-desc">Fun online painting and art games for everyone</div>
+    </a>
+    <a class="game-card reveal" href="https://www.justcolor.net" target="_blank" rel="noopener">
+      <span class="game-icon">🌸</span>
+      <div class="game-title">Just Color</div>
+      <div class="game-desc">Relaxing coloring pages for adults and kids</div>
+    </a>
+    <a class="game-card reveal" href="https://www.coloringpages101.com" target="_blank" rel="noopener">
+      <span class="game-icon">🦋</span>
+      <div class="game-title">Free Coloring Pages</div>
+      <div class="game-desc">Hundreds of free printable & online coloring pages</div>
+    </a>
+    <a class="game-card reveal" href="https://www.drawingforall.net" target="_blank" rel="noopener">
+      <span class="game-icon">✏️</span>
+      <div class="game-title">Drawing Lessons</div>
+      <div class="game-desc">Learn to draw cute things step by step</div>
+    </a>
+    <a class="game-card reveal" href="https://garticphone.com" target="_blank" rel="noopener">
+      <span class="game-icon">🎭</span>
+      <div class="game-title">Gartic Phone</div>
+      <div class="game-desc">Draw & guess together — a fun game for two!</div>
+    </a>
+  </div>
+</section>
+
+<!-- DISCORD -->
+<section id="discord">
+  <div class="ornament-divider">✦ 💬 ✦</div>
+  <h2 class="section-title reveal">Join Our Cozy Room 💬</h2>
+  <div class="discord-card reveal">
+    <span class="discord-logo">🏠</span>
+    <p class="discord-text">
+      A warm, cozy space for Mahmoud & Donia and their closest friends.<br>
+      Come hang out, share memories, and spread the love. 💕
+    </p>
+    <a class="btn-discord" href="https://discord.com/channels/1348019467208102000/1348019468718178339" target="_blank" rel="noopener">
+      <svg width="22" height="22" viewBox="0 0 71 55" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M60.1045 4.8978C55.5792 2.8214 50.7265 1.2916 45.6527 0.41542C45.5603 0.39851 45.468 0.44077 45.4204 0.52529C44.7963 1.6353 44.105 3.0834 43.6209 4.2216C38.1637 3.4046 32.7345 3.4046 27.3892 4.2216C26.905 3.0581 26.1886 1.6353 25.5617 0.52529C25.5141 0.44359 25.4218 0.40133 25.3294 0.41542C20.2584 1.2888 15.4057 2.8186 10.8776 4.8978C10.8384 4.9147 10.8048 4.9429 10.7825 4.9795C1.57795 18.7309 -0.943561 32.1443 0.293408 45.3914C0.299005 45.4562 0.335386 45.5182 0.385761 45.5576C6.45866 50.0174 12.3413 52.7249 18.1147 54.5195C18.2071 54.5477 18.305 54.5139 18.3638 54.4378C19.7295 52.5728 20.9469 50.6063 21.9907 48.5383C22.0523 48.4172 21.9935 48.2735 21.8676 48.2256C19.9366 47.4931 18.0979 46.6 16.3292 45.5858C16.1893 45.5041 16.1781 45.304 16.3068 45.2082C16.679 44.9293 17.0513 44.6391 17.4067 44.3461C17.471 44.2926 17.5606 44.2813 17.6362 44.3151C29.2558 49.6202 41.8354 49.6202 53.3179 44.3151C53.3935 44.2785 53.4831 44.2898 53.5502 44.3433C53.9057 44.6363 54.2779 44.9293 54.6529 45.2082C54.7816 45.304 54.7732 45.5041 54.6333 45.5858C52.8646 46.6197 51.0259 47.4931 49.0921 48.2228C48.9662 48.2707 48.9102 48.4172 48.9718 48.5383C50.038 50.6034 51.2554 52.5699 52.5959 54.435C52.6519 54.5139 52.7526 54.5477 52.845 54.5195C58.6464 52.7249 64.529 50.0174 70.6019 45.5576C70.6551 45.5182 70.6887 45.459 70.6943 45.3942C72.1747 30.0791 68.2147 16.7757 60.1968 4.9823C60.1772 4.9429 60.1437 4.9147 60.1045 4.8978ZM23.7259 37.3253C20.2276 37.3253 17.3451 34.1136 17.3451 30.1693C17.3451 26.225 20.1717 23.0133 23.7259 23.0133C27.308 23.0133 30.1626 26.2532 30.1066 30.1693C30.1066 34.1136 27.28 37.3253 23.7259 37.3253ZM47.3178 37.3253C43.8196 37.3253 40.9371 34.1136 40.9371 30.1693C40.9371 26.225 43.7636 23.0133 47.3178 23.0133C50.9 23.0133 53.7545 26.2532 53.6986 30.1693C53.6986 34.1136 50.9 37.3253 47.3178 37.3253Z" fill="white"/></svg>
+      Join the Room
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  Made with <span>♥</span> for <strong>Mahmoud & Donia</strong> — Ramadan Kareem 🌙✨
+</footer>
+
+<script>
+// ============================================================
+// CANVAS: Stars, Floating Hearts, Sparkles
+// ============================================================
+const canvas = document.getElementById('bg-canvas');
+const ctx = canvas.getContext('2d');
+let W, H;
+
+function resize() {
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+// Stars
+const stars = Array.from({ length: 150 }, () => ({
+  x: Math.random() * 2000,
+  y: Math.random() * 2000,
+  r: Math.random() * 1.5 + 0.3,
+  alpha: Math.random(),
+  speed: Math.random() * 0.008 + 0.002,
+  phase: Math.random() * Math.PI * 2
+}));
+
+// Floating particles
+const particles = Array.from({ length: 30 }, () => ({
+  x: Math.random() * 2000,
+  y: Math.random() * 2000 + 200,
+  size: Math.random() * 10 + 5,
+  type: Math.random() < 0.5 ? 'heart' : 'star',
+  vy: -(Math.random() * 0.4 + 0.1),
+  vx: (Math.random() - 0.5) * 0.2,
+  alpha: Math.random() * 0.4 + 0.1,
+  color: ['#e8607a','#d4a843','#f5a0b0','#ffd87a','#3aacb0'][Math.floor(Math.random()*5)],
+  phase: Math.random() * Math.PI * 2
+}));
+
+let scrollY = 0;
+window.addEventListener('scroll', () => { scrollY = window.scrollY; });
+
+function drawHeart(ctx, x, y, size, color, alpha) {
+  ctx.save();
+  ctx.globalAlpha = alpha;
+  ctx.fillStyle = color;
+  ctx.beginPath();
+  const s = size / 10;
+  ctx.moveTo(x, y + s * 3);
+  ctx.bezierCurveTo(x, y + s, x - s * 4, y, x - s * 4, y + s * 3);
+  ctx.bezierCurveTo(x - s * 4, y + s * 6, x, y + s * 8, x, y + s * 8);
+  ctx.bezierCurveTo(x, y + s * 8, x + s * 4, y + s * 6, x + s * 4, y + s * 3);
+  ctx.bezierCurveTo(x + s * 4, y, x, y + s, x, y + s * 3);
+  ctx.fill();
+  ctx.restore();
+}
+
+function drawStar6(ctx, x, y, size, color, alpha) {
+  ctx.save();
+  ctx.globalAlpha = alpha;
+  ctx.fillStyle = color;
+  ctx.beginPath();
+  for (let i = 0; i < 6; i++) {
+    const angle = (i / 6) * Math.PI * 2 - Math.PI / 2;
+    const r = i % 2 === 0 ? size : size * 0.4;
+    ctx.lineTo(x + Math.cos(angle) * r, y + Math.sin(angle) * r);
+  }
+  ctx.closePath();
+  ctx.fill();
+  ctx.restore();
+}
+
+let t = 0;
+function animate() {
+  ctx.clearRect(0, 0, W, H);
+  t += 0.016;
+
+  // Draw stars
+  stars.forEach(s => {
+    const a = 0.3 + 0.3 * Math.sin(s.phase + t * s.speed * 60);
+    ctx.save();
+    ctx.globalAlpha = a;
+    ctx.fillStyle = '#ffd87a';
+    ctx.beginPath();
+    ctx.arc(s.x % W, s.y % H, s.r, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  });
+
+  // Draw particles
+  particles.forEach(p => {
+    p.y += p.vy;
+    p.x += p.vx + Math.sin(t + p.phase) * 0.15;
+    if (p.y < -50) {
+      p.y = H + 50;
+      p.x = Math.random() * W;
+    }
+    if (p.type === 'heart') {
+      drawHeart(ctx, p.x, p.y, p.size, p.color, p.alpha);
+    } else {
+      drawStar6(ctx, p.x, p.y, p.size * 0.5, p.color, p.alpha);
+    }
+  });
+
+  requestAnimationFrame(animate);
+}
+animate();
+
+// ============================================================
+// CUSTOM CURSOR + SPARKLES
+// ============================================================
+const cursor = document.getElementById('cursor');
+let mx = -100, my = -100;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx + 'px';
+  cursor.style.top = my + 'px';
+
+  // Sparkle trail
+  if (Math.random() > 0.6) createSparkle(mx, my);
+});
+
+function createSparkle(x, y) {
+  const el = document.createElement('div');
+  el.style.cssText = `
+    position:fixed;
+    left:${x}px;top:${y}px;
+    width:6px;height:6px;
+    background:${['#d4a843','#e8607a','#ffd87a','#f5a0b0'][Math.floor(Math.random()*4)]};
+    border-radius:50%;
+    pointer-events:none;
+    z-index:9997;
+    transform:translate(-50%,-50%);
+    animation:sparkFade 0.6s ease-out forwards;
+  `;
+  const style = document.createElement('style');
+  if (!document.querySelector('#sparkStyle')) {
+    style.id = 'sparkStyle';
+    style.textContent = `@keyframes sparkFade {
+      0%   { opacity:1; transform:translate(-50%,-50%) scale(1); }
+      100% { opacity:0; transform:translate(${(Math.random()-0.5)*40}px,${(Math.random()-0.5)*40}px) scale(0); }
+    }`;
+    document.head.appendChild(style);
+  }
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 600);
+}
+
+// ============================================================
+// CLICK HEARTS
+// ============================================================
+document.addEventListener('click', e => {
+  const emojis = ['❤️','💕','💖','💗','🌹','✨','💫','🌙'];
+  const el = document.createElement('div');
+  el.className = 'click-heart';
+  el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+  el.style.left = e.clientX - 15 + 'px';
+  el.style.top = e.clientY - 15 + 'px';
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 1000);
+});
+
+// ============================================================
+// LOVE COUNTER
+// ============================================================
+const start = new Date('2025-02-16T00:00:00');
+function updateCounter() {
+  const now = new Date();
+  const diff = now - start;
+  const days    = Math.floor(diff / 86400000);
+  const hours   = Math.floor((diff % 86400000) / 3600000);
+  const minutes = Math.floor((diff % 3600000) / 60000);
+  const seconds = Math.floor((diff % 60000) / 1000);
+  document.getElementById('days').textContent    = String(days).padStart(3, '0');
+  document.getElementById('hours').textContent   = String(hours).padStart(2, '0');
+  document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+  document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+}
+updateCounter();
+setInterval(updateCounter, 1000);
+
+// ============================================================
+// SCROLL REVEAL
+// ============================================================
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+reveals.forEach(el => observer.observe(el));
+
+// ============================================================
+// PARALLAX MOUSE
+// ============================================================
+document.addEventListener('mousemove', e => {
+  const xPct = (e.clientX / window.innerWidth - 0.5) * 20;
+  const yPct = (e.clientY / window.innerHeight - 0.5) * 20;
+  document.querySelectorAll('.star-deco').forEach((el, i) => {
+    const factor = (i + 1) * 0.5;
+    el.style.transform = `translate(${xPct * factor * 0.3}px, ${yPct * factor * 0.3}px)`;
+  });
+  document.querySelectorAll('.lantern').forEach((el, i) => {
+    el.style.marginLeft = xPct * (i + 1) * 0.4 + 'px';
+  });
+});
+</script>
+</body>
+</html>
